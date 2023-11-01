@@ -1,10 +1,12 @@
-<div class="mx-auto w-1/2">
-  <h2 class="text-2xl text-gray-900">
-    Top 10 HackerNews Stories as of <%= @latest_story.posted_at.localtime %>
+<div class="mx-auto">
+  <h2 class="mb-2 text-2xl text-gray-900 flex justify-center">
+    Top 10 HackerNews Stories as of <%= Time.now.localtime.strftime("%A,%e %B %Y, %I %p %Z") %>
   </h2>
-  <div class="w-full max-w-2xl bg-gray-100 py-8 px-4 border border-gray-200 rounded shadow-sm">
+  <div class="w-full bg-gray-100 py-4 px-4 border border-gray-200 rounded shadow-sm">
     <ul id="tasks">
       <%= render @stories %>
     </ul>
   </div>
 </div>
+
+
