@@ -1,0 +1,5 @@
+<li id="<%= "#{dom_id(task)}_container" %>" class="py-2 px-4 border-b border-gray-300">
+  <%= turbo_frame_tag dom_id(task) do  %>
+    <%= link_to task.description, edit_task_path(task) %>
+  <% end %>
+</li>
