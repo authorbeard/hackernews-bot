@@ -7,5 +7,5 @@ FactoryBot.define do
     text { Faker::Hipster.paragraph }
     score { Faker::Number.between(from: 1, to: 100) }
     hn_id { Faker::Number.number(digits: 8) }
-    descendant_count { Faker::Number.between(from: 1, to: 100) }
   end
+end
