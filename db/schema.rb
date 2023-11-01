@@ -16,7 +16,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_01_174746) do
 
   create_table "stories", force: :cascade do |t|
     t.string "title"
-    t.string "type"
+    t.string "hn_type"
     t.string "by"
     t.timestamptz "posted_at"
     t.text "text"
