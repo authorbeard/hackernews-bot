@@ -44,6 +44,7 @@ class TopStoriesService
         score: story["score"],
         hn_id: story["id"],
         descendant_count: story["descendants"],
+        url: story["url"],
         top_stories_idx: idx,
       )
 

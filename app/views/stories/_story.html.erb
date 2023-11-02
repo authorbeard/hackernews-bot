@@ -1,7 +1,9 @@
 <li id="<%= "#{dom_id(story)}_container" %>" class="py-2 px-4 border-b border-gray-300">
   <%= turbo_frame_tag dom_id(story) do  %>
     <div class="flex flex-col items-center">
-        <span class="border-b border-gray-300 font-black"><%= story.title %></span>
+        <div class="border-b border-gray-300 font-black">
+          <%= link_to story.title, story.url %>
+        </div>
         <span class="mt-2 text-md"><%= story.text %></span>
         <div class="flex justify-between items-center">
           <span class="mt-2 text-xs font-grey">
