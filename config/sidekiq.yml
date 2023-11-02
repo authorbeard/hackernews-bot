@@ -2,6 +2,7 @@
 :verbose: true
 :concurrency: 5
 :timeout: 25
+:backtrace: true
 
 :queues:
   - critical
@@ -13,3 +14,13 @@ production:
   :concurrency: 25
 staging:
   :concurrency: 15
+
+:scheduler:
+  :dynamic: true 
+  :schedule:
+    # fetch_top_stories_job:
+    #   every: 30 seconds
+    #   class: FetchTopStoriesJob
+    hello_world:
+      every: 30 seconds
+      class: HelloWorld

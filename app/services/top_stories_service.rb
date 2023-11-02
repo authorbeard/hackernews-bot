@@ -49,10 +49,12 @@ class TopStoriesService
 
       if story_for_update.valid?
         story_for_update.save!
-        FetchStoryCommentsJob.perform_later({
-          story: story_for_update,
-          comment_ids: story['kids']
-      })
+        if story['kids'].present?
+          FetchStoryCommentsJob.perform_later({
+            story: story_for_update,
+            comment_ids: story['kids']
+          })
+        end
       else
         errors << "#{story_for_update.errors.full_messages.join(', ')} | hn_id: #{story_for_update.hn_id} | title: #{story_for_update.title}"
       end
