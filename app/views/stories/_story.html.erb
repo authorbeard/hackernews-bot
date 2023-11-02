@@ -7,6 +7,7 @@
           <span class="mt-2 text-xs font-grey">
             by <%= story.by %> | 
             posted at <%= story.posted_at.localtime.strftime("%A,%e %B %Y, %I %p %Z") %> 
+            | HackerNews Score: <%= story.score %>
             <%= turbo_frame_tag "#{dom_id(story)}_comments" do %>
               <%= link_to "| comments: #{story.comments.count}", story_comments_path(story), data: {turbo_stream: true} %>
             <% end %>
