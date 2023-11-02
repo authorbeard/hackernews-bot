@@ -35,6 +35,7 @@ gem "redis", "~> 4.0"
 
 gem "sidekiq"
 gem "sidekiq-scheduler"
+gem "foreman"
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 

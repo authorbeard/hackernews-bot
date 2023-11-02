@@ -28,7 +28,9 @@ Once you've cloned down the repo, you can do the usual Rails dance, or you can j
 bundle exec rails setup:complete_install 
 ```  
 
-That'll install all your gems, set up your databases, and enqueue a job that will retrieve the top 10 stories and enqueue further jobs to request each story's comments from the HackerNews API. 
+That'll install all your gems, set up your databases, and enqueue a job that will retrieve the top 10 stories and enqueue further jobs to request each story's comments from the HackerNews API. (Well, it'll actually shove the job up into the redis queue, but Sidekiq will pick it up from there when it starts). 
+
+To start it up, it's dealer's choice whether to use `bin/dev` or `be foreman s`. Both Procfiles are the same. 
 
 That's really all there is to it. The hourly refresh is scheduled in `config/initializers/sidekiq`:  
 
