@@ -28,6 +28,9 @@ class HackerNewsClient
       raise APIError.new("Error fetching top stories: #{resp}") unless resp.is_a?(Net::HTTPSuccess)
 
       JSON.parse(resp.body)
+
+    rescue Errno::ETIMEDOUT, Net::OpenTimeout => e
+      raise APIError.new("Connection timeout error")
     end
 
     def get_story(id)

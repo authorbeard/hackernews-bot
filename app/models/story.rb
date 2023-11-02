@@ -6,5 +6,4 @@ class Story < ApplicationRecord
   has_many :comments
 
   scope :top_ten, -> { order(top_stories_idx: :asc).limit(10) }
-# HN response includes ':kids' array; not adding to model; poss create scope
 end
