@@ -5,5 +5,6 @@ FactoryBot.define do
     hn_id   { Faker::Number.number(digits: 8) }
     story
     hn_type { "comment" }
+    posted_at 
   end
 end
