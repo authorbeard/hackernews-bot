@@ -1,5 +1,17 @@
-<%= turbo_stream.after "#{dom_id(@story)}_comments" do %>
-  <ul id="<%= "#{dom_id(@story)}_comments_list" %>" class="ml-4 px-2 py-2">
-    <%= render @comments %>
-  </ul>
+<%= turbo_stream.replace "#{dom_id(@story)}_comments" do %>
+  <%= turbo_frame_tag "#{dom_id(@story)}_comments" do %>
+    <%= link_to "| comments: #{@story.comments.count}", story_comments_path(@story), data: {turbo_stream: true} %>
+  <% end %>
+    <div id="<%= "#{dom_id(@story)}_comments_container" %>" data-controller="collapsibility">
+      <div class="relative">  
+        <button class="absolute top-0 right-0 btn bg-transparent hover:bg-red-700 text-black hover:text-white font-bold border-black-500 hover:border-transparent "  id="<%= "collapse_story_#{@story_id}_comments" %>" data-action="click->collapsibility#toggleComments">
+          Hide Comments
+        </button>
+      </div>
+        <div data-collapsibility-target="collapsible">
+          <ul id="<%= "#{dom_id(@story)}_comments_list" %>" class="ml-4 px-2 py-2">
+            <%= render @comments %>
+          </ul>
+        </div>
+    </div>
 <% end %>
