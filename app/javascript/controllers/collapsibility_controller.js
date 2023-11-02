@@ -5,8 +5,7 @@ export default class extends Controller {
 
   collapseComments() {
     this.collapsibleTargets.forEach(comment => {
-debugger;
-      comment.hidden = true
+      comment.parentElement.hidden = true
     });
   }
 }
