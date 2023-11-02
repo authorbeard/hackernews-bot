@@ -1,5 +1,12 @@
 <%= turbo_stream.after "#{dom_id(@story)}_comments" do %>
-  <ul id="<%= "#{dom_id(@story)}_comments_list" %>" class="ml-4 px-2 py-2">
-    <%= render @comments %>
-  </ul>
+  <div id="<%= "#{dom_id(@story)}_comments" %>" data-controller="collapsibility">
+      <button data-action="click->collapsibility#collapseComments">
+        Collapse
+      </button>
+      <div data-collapsibility-target="collapsible">
+        <ul id="<%= "#{dom_id(@story)}_comments_list" %>" class="ml-4 px-2 py-2">
+          <%= render @comments %>
+        </ul>
+      </div>
+  </div>
 <% end %>
