@@ -3,9 +3,9 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["collapsible"]
 
-  collapseComments() {
+  toggleComments() {
     this.collapsibleTargets.forEach(comment => {
-      comment.parentElement.hidden = true
+      comment.parentElement.hidden = !comment.parentElement.hidden
     });
   }
 }
