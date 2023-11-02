@@ -2,7 +2,7 @@ class FetchStoryCommentsJob < ApplicationJob
   def perform(opts)
     opts[:comment_ids].each do |comment_id|
       comment_hash = HackerNewsClient.get_story(comment_id)
-      next if comment_hash["deleted"] 
+      next if comment_hash.nil? || comment_hash.dig("deleted")
 
       comment_for_update = Comment.find_or_initialize_by(hn_id: comment_hash["id"])
       comment_for_update.assign_attributes(
