@@ -26,15 +26,14 @@ class TopStoriesService
     top_stories.each_with_index do |story, idx|
       next if story["type"] != "story"
 
-    #   #NOTE: need to come back to this later
-    #   db_stories = Story.where(top_stories_idx: idx).or(Story.where(hn_id: story["id"]))
-    # debugger
-    #   matching_id, old_top_story = db_stories.partition { |s| s.hn_id == story["id"].to_s }
-      
+    # TODO: extract to separate method and create sidekiq job fo updating old records
+    db_stories = Story.where(top_stories_idx: idx).or(Story.where(hn_id: story["id"]))
+    matching_id, old_top_stories = db_stories.partition { |s| s.hn_id == story["id"].to_s }
+
     #   # NOTE: This should be async; will move it to Sidekiq later
-    #   old_top_story.update(top_stories_idx: nil) if old_top_story.present?
-      s = Story.find_or_initialize_by(hn_id: story["id"]) 
+      old_top_stories.each{|s| s.update(top_stories_idx: nil) } if old_top_stories.any?
       
+      s = matching_id.any? ? matching_id.first : Story.new 
       s.assign_attributes(
         title: story["title"],
         hn_type: story["type"],
@@ -50,7 +49,7 @@ class TopStoriesService
       s.save!
 
     rescue ActiveRecord::RecordInvalid => e
-      errors << "#{e.message} | #{e.record.hn_id} | #{e.record.text}"
+      errors << "#{e.message} | hn_id: #{e.record.hn_id} | title: #{e.record.title}"
     end
   end
 
