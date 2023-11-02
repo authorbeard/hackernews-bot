@@ -15,13 +15,11 @@ class HackerNewsClient
       # one individually and inspect its type. 
       uri = URI("#{BASE_URL}/topstories.json")
 
-      # NOTE: limiting to 20 on the assumption that it'll yield at least 10 stories of type 'story'; haven't 
-      # yet examined this to see if the topstories endpoint includes jobs and other things. 
-      # the default is 500; it's just an array of ids, so that's not a ton of data to have to deal with, but still seems like overkill. 
-      # also, the pattern I usually follow is to memoize a base set of params/queries/headers what-have-you and then merge those with 
-      # endpoint- or method-specific params/queries/headers, but it doesn't seem like that'll be necessary here, so for now, I'm just doing 
-      # this within the metho. 
-      uri.query = URI.encode_www_form({ orderBy: "$key".to_json, limitToFirst: 20 })
+      # NOTE: Commenting this out for now, as I can't be confident in what orderBy does to the results. HackerNews has not
+      # documented the order in which these are returned, as far as I know, but my initial concern over having to deal with 500 items
+      # proved unfounded, as they're just IDs, and the service that calls this method stops calling the individual one 
+      # it has reached 10 stories anyway. 
+      # uri.query = URI.encode_www_form({ orderBy: "$key".to_json, limitToFirst: 20 })
 
       # NOTE: Considered memoizing this, but I'm not sure we'll actually need that 
       resp = Net::HTTP.get_response(uri)
