@@ -33,8 +33,9 @@ class TopStoriesService
     #   # NOTE: This should be async; will move it to Sidekiq later
       old_top_stories.each{|s| RemoveTopStoriesIdxJob.perform_later(s) } if old_top_stories.any?
       
-      s = matching_id.any? ? matching_id.first : Story.new 
-      s.assign_attributes(
+      story_for_update = matching_id.any? ? matching_id.first : Story.new 
+
+      story_for_update.assign_attributes(
         title: story["title"],
         hn_type: story["type"],
         by: story["by"],
@@ -43,10 +44,18 @@ class TopStoriesService
         score: story["score"],
         hn_id: story["id"],
         descendant_count: story["descendants"],
-        top_stories_idx: idx
+        top_stories_idx: idx,
       )
 
-      s.save!
+      if story_for_update.valid?
+        story_for_update.save!
+        FetchStoryCommentsJob.perform_later({
+          story: story_for_update,
+          comment_ids: story['kids']
+      })
+      else
+        errors << "#{story_for_update.errors.full_messages.join(', ')} | hn_id: #{story_for_update.hn_id} | title: #{story_for_update.title}"
+      end
 
     rescue ActiveRecord::RecordInvalid => e
       errors << "#{e.message} | hn_id: #{e.record.hn_id} | title: #{e.record.title}"

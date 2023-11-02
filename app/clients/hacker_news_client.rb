@@ -33,7 +33,6 @@ class HackerNewsClient
     def get_story(id)
       uri = URI("#{BASE_URL}/item/#{id}.json")
       JSON.parse(Net::HTTP.get(uri))
-
     end
   end
 end
