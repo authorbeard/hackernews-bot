@@ -31,7 +31,7 @@ class TopStoriesService
     matching_id, old_top_stories = db_stories.partition { |s| s.hn_id == story["id"].to_s }
 
     #   # NOTE: This should be async; will move it to Sidekiq later
-      old_top_stories.each{|s| s.update(top_stories_idx: nil) } if old_top_stories.any?
+      old_top_stories.each{|s| RemoveTopStoriesIdxJob.perform_later(s) } if old_top_stories.any?
       
       s = matching_id.any? ? matching_id.first : Story.new 
       s.assign_attributes(

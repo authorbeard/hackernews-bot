@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Story do 
   describe "validations" do 
-    %i[title text score hn_id].each do |attr|
+    %i[title hn_id].each do |attr|
       it { should validate_presence_of(attr) }
     end
 
