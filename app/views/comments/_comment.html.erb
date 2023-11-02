@@ -1,0 +1,11 @@
+<li id="<%= "#{dom_id(comment)}_container" %>" class="px-4 py-2">
+  <div class="flex flex-col items-center">
+      <span class="mt-2 text-md"><%= comment.text %></span>
+      <div class="flex justify-between items-center">
+        <span class="mt-2 text-xs font-thin">
+          comment by <%= comment.by %> | 
+          posted at <%= comment.posted_at.localtime.strftime("%A,%e %B %Y, %I %p %Z") %> 
+        </span>
+      </div>
+  </div>
+</li>

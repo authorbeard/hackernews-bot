@@ -1,0 +1,5 @@
+<%= turbo_stream.after "#{dom_id(@story)}_comments" do %>
+  <ul id="<%= "#{dom_id(@story)}_comments_list" %>" class="ml-4 px-2 py-2">
+    <%= render @comments %>
+  </ul>
+<% end %>
