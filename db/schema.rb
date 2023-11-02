@@ -39,7 +39,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_02_162642) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "top_stories_idx"
-    t.string "url"
+    t.string "url", default: "https://news.ycombinator.com/"
     t.index ["hn_id"], name: "index_stories_on_hn_id", unique: true
   end
 
